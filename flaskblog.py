@@ -4,7 +4,7 @@ from datetime import datetime
 from forms import RegistrationForm, LoginForm
 
 
-
+# Flask constructor takes the name of current module (__name__)
 app=Flask(__name__)
 app.config['SECRET_KEY']='bdc35b68e981a0f3a5b11c320705d05c26bbfbaee3c28ff6f809f71575e5c1ab'
 app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'
@@ -49,9 +49,9 @@ posts=[
     }
 ]
 
-#home page 
-@app.route('/')
+# Python decorator that Flask provides to assign URLs in our app
 @app.route('/home')
+@app.route('/')
 def home():
     return render_template('home.html', posts=posts)
 
@@ -80,5 +80,8 @@ def login():
              flash(f'Login Unsuccessful. incorrect email or password', 'danger')
     return render_template('login.html', title="Login", form = form)
 
+
+
+# Used to execute some code only if the file was run directly, and not imported
 if __name__=='__main__':
     app.run(debug=True)
